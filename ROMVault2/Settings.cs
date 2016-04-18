@@ -33,8 +33,9 @@ namespace ROMVault2
 
     public static class Settings
     {
+		public static string WindowLocation = null;
 
-        public static string DatRoot;
+		public static string DatRoot;
         public static string CacheFile;
         public static eScanLevel ScanLevel;
         public static eFixLevel FixLevel;
@@ -104,7 +105,7 @@ namespace ROMVault2
 
             FileStream fs = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RomVault2.cfg"), FileMode.CreateNew, FileAccess.Write);
             BinaryWriter bw = new BinaryWriter(fs);
-            const int ver = 5;
+            const int ver = 6;
 
             bw.Write(ver);                  //int
             bw.Write(DatRoot);              //string
@@ -128,8 +129,9 @@ namespace ROMVault2
             bw.Write(CacheSaveTimerEnabled); //bool
             bw.Write(CacheSaveTimePeriod);   //int
             bw.Write(DoubleCheckDelete);     //bool
+			bw.Write(WindowLocation);		//string
 
-            fs.Flush();
+			fs.Flush();
             fs.Close();
         }
 
@@ -241,7 +243,7 @@ namespace ROMVault2
                 ScanLevel = (eScanLevel)br.ReadInt32();
                 FixLevel = (eFixLevel)br.ReadInt32();
                 DebugLogsEnabled = br.ReadBoolean();
-                bool UserLongFilenames = br.ReadBoolean();
+//              bool UserLongFilenames = br.ReadBoolean(); //not saved removed temp
 
                 IgnoreFiles = new List<string>();
                 int c = br.ReadInt32();
@@ -257,6 +259,7 @@ namespace ROMVault2
                 CacheSaveTimePeriod = br.ReadInt32();
 
                 DoubleCheckDelete = br.ReadBoolean();
+				WindowLocation = br.ReadString();
             }
 
 

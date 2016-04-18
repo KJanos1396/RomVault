@@ -1551,6 +1551,47 @@ namespace ROMVault2
                 }
             }
         }
-        
-    }
+
+		private void FrmMain_Load(object sender,EventArgs e)
+		{
+			if((ModifierKeys & Keys.Shift) == 0)
+			{
+				string initLocation = Settings.WindowLocation;
+				Point il = new Point(0,0);
+				Size sz = Size;
+				if(!string.IsNullOrEmpty(initLocation))
+				{
+					string[] parts = initLocation.Split(',');
+					if(parts.Length >= 2)
+					{
+						il = new Point(int.Parse(parts[0]),int.Parse(parts[1]));
+					}
+					if(parts.Length >= 4)
+					{
+						sz = new Size(int.Parse(parts[2]),int.Parse(parts[3]));
+					}
+				}
+				Size = sz;
+				Location = il;
+			}
+		}
+
+		private void FrmMain_FormClosing(object sender,FormClosingEventArgs e)
+		{
+			if((ModifierKeys & Keys.Shift) == 0)
+			{
+				Point location = Location;
+				Size size = Size;
+				if(WindowState != FormWindowState.Normal)
+				{
+					location = RestoreBounds.Location;
+					size = RestoreBounds.Size;
+				}
+				string initLocation = string.Format("{0},{1},{2},{3}",location.X,location.Y,size.Width,size.Height);
+				Settings.WindowLocation = initLocation;
+				Settings.WriteConfig();
+			}
+
+		}
+	}
 }
