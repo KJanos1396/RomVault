@@ -1565,7 +1565,7 @@ namespace ROMVault2
 		{
 			if((ModifierKeys & Keys.Shift) == 0)
 			{
-				string initLocation = Settings.WindowLocation;
+				string initLocation = Program.rvSettings.WindowLocation;
 				Point il = new Point(0,0);
 				Size sz = Size;
 				if(!string.IsNullOrEmpty(initLocation))
@@ -1597,8 +1597,8 @@ namespace ROMVault2
 					size = RestoreBounds.Size;
 				}
 				string initLocation = string.Format("{0},{1},{2},{3}",location.X,location.Y,size.Width,size.Height);
-				Settings.WindowLocation = initLocation;
-				Settings.WriteConfig();
+				Program.rvSettings.WindowLocation = initLocation;
+				Program.rvSettings.WriteConfig();
 			}
 
 		}

@@ -46,6 +46,7 @@ namespace ROMVault2
         public bool DebugLogsEnabled;
         public bool CacheSaveTimerEnabled = true;
         public int CacheSaveTimePeriod = 10;
+		public string WindowLocation = null;
 
         public bool IsUnix
         {
@@ -69,7 +70,9 @@ namespace ROMVault2
 
             IgnoreFiles = new List<string> { "_ReadMe_.txt" };
 
-            ResetDirectories();
+			WindowLocation = null;
+
+			ResetDirectories();
 
             ReadConfig();
 
